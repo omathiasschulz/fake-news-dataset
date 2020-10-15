@@ -10,7 +10,7 @@ URL = 'https://raw.githubusercontent.com/roneysco/Fake.br-Corpus/master/'
 
 TEXT_TRUE = 'full_texts/true/'
 TEXT_TRUE_META_INFORMATION = 'full_texts/true-meta-information/'
-TEXT_FALSE = 'full_texts/false/'
+TEXT_FAKE = 'full_texts/fake/'
 TEXT_FAKE_META_INFORMATION = 'full_texts/fake-meta-information/'
 
 # Número de notícias falsas e verdadeiras
@@ -36,20 +36,82 @@ def textClean(text):
     text = text.translate(str.maketrans("", "", string.punctuation))
     return text
 
-def generateNews(df, rota, fake_news):
+def requestMetaInformation(rota, index):
+    '''
+    Método responsável por buscar o metadata da notícia determinada pelo index
+    '''
+    req = requests.get(URL + rota + str(index) + '-meta.txt')
+
+    # Valida se o request ocorreu com sucesso
+    if req.status_code != requests.codes.ok:
+        return None
+
+    # Converte o metadata para array
+    metadata = req.text.split('\r\n')
+    # Se a quantidade de informações é diferente de 25 ocorreu algum erro
+    if len(metadata) != 25:
+        raise Exception('Falha ao buscar o metadata da notícia %i' %index)
+
+    return {
+        'author': metadata[0],
+        'link': metadata[1],
+        'category': metadata[2],
+        'date_publication': metadata[3],
+        'number_tokens': metadata[4],
+        'number_words': metadata[5],
+        'number_types': metadata[6],
+        'number_links': metadata[7],
+        'number_words_upper': metadata[8],
+        'number_verbs': metadata[9],
+        'number_sub_imp_verbs': metadata[10],
+        'number_nouns': metadata[11],
+        'number_adjectives': metadata[12],
+        'number_adverbs': metadata[13],
+        'number_modal_verbs': metadata[14],
+        'number_singular': metadata[15],
+        'number_plural': metadata[16],
+        'number_pronouns': metadata[17],
+        'pausality': metadata[18],
+        'number_characters': metadata[19],
+        'average_sentence_length': metadata[20],
+        'average_word_length': metadata[21],
+        'percent_speeling_errors': metadata[22],
+        'emotiveness': metadata[23],
+        'diversity': metadata[24],
+    }
+
+def generateNews(df, fake_news):
     '''
     Método responsável por gerar as notícias de acordo com os parâmetros fornecidos
     '''
     falhas = 0
     falhasText = []
+    # Busca as rotas de acordo com o tipo de notícia
+    if fake_news == 0:
+        rota = TEXT_FAKE
+        rotaMeta = TEXT_FAKE_META_INFORMATION
+    else:
+        rota = TEXT_TRUE
+        rotaMeta = TEXT_TRUE_META_INFORMATION
 
     for i in range(1, TEXT_NUMBER + 1):
+        # Realiza a busca da noticia i, caso resulte algum erro registra uma falha
         req = requests.get(URL + rota + str(i) + '.txt')
-        if req.status_code == requests.codes.ok:
-            df = df.append({'ID': i, 'fake_news': fake_news, 'text': textClean(req.text)}, ignore_index=True)
-        else:
+        if req.status_code != requests.codes.ok:
             falhas += 1
             falhasText.append(i)
+            continue
+
+        # Busca o metadata, caso resulte algum erro registra uma falha
+        metadata = requestMetaInformation(rotaMeta, i)
+        if metadata == None:
+            falhas += 1
+            falhasText.append(i)
+            continue
+
+        # Insere a noticia no dataframe
+        news = {**{'ID': i, 'fake_news': fake_news, 'text': textClean(req.text)}, **metadata}
+        df = df.append(news, ignore_index=True)
 
     return [
         df,
@@ -57,57 +119,36 @@ def generateNews(df, rota, fake_news):
         falhasText,
     ]
 
-# Criação da DataFrame
-columns = ['ID', 'fake_news', 'text']
-# fake_news => 1 = True, 0 = False
-df = pd.DataFrame(columns = columns)
+try:
+    print('Iniciano a criação do CSV')
 
-print('Iniciano a criação do CSV')
+    inicio = time.time()
+    falhas = 0
+    falhasText = []
 
-inicio = time.time()
-falhas = 0
-falhasText = []
+    # Criação da DataFrame
+    columns = ['ID', 'fake_news', 'text']
+    # fake_news => 1 = True, 0 = False
+    df = pd.DataFrame(columns = columns)
 
-result = generateNews(df, TEXT_TRUE, 0)
-df = result[0]
-falhas = result[1]
-falhasText = result[2]
+    result = generateNews(df, 0)
+    df = result[0]
+    falhas = result[1]
+    falhasText = result[2]
 
-fim = time.time()
+    result = generateNews(df, 1)
+    df = result[0]
+    falhas = result[1]
+    falhasText = result[2]
 
-# Realiza a criação do CSV
-df.to_csv('dataset.csv')
+    fim = time.time()
 
-print('CSV criado com sucesso! ')
-print('Número de falhas: %i' %(falhas))
-print('Falhas nos textos: ', falhasText)
-print('Tempo de execução: %f minutos' %((fim - inicio) / 60))
+    # Realiza a criação do CSV
+    df.to_csv('dataset.csv')
 
-
-
-##### COLUNAS #####
-# author
-# link
-# category
-# date of publication
-# number of tokens
-# number of words without punctuation
-# number of types
-# number of links inside the news
-# number of words in upper case
-# number of verbs
-# number of subjuntive and imperative verbs
-# number of nouns
-# number of adjectives
-# number of adverbs
-# number of modal verbs (mainly auxiliary verbs)
-# number of singular first and second personal pronouns
-# number of plural first personal pronouns
-# number of pronouns
-# pausality
-# number of characters
-# average sentence length
-# average word length
-# percentage of news with speeling errors
-# emotiveness
-# diversity
+    print('CSV criado com sucesso! ')
+    print('Número de falhas: %i' %(falhas))
+    print('Falhas nos textos: ', falhasText)
+    print('Tempo de execução: %f minutos' %((fim - inicio) / 60))
+except Exception as e:
+    print('Falha ao gerar CSV: %s' %str(e))
