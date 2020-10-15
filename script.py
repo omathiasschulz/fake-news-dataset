@@ -124,7 +124,8 @@ try:
 
     inicio = time.time()
     falhas = 0
-    falhasText = []
+    falhasTextFake = []
+    falhasTextReal = []
 
     # Criação da DataFrame
     columns = ['ID', 'fake_news', 'text']
@@ -133,13 +134,13 @@ try:
 
     result = generateNews(df, 0)
     df = result[0]
-    falhas = result[1]
-    falhasText = result[2]
+    falhas += result[1]
+    falhasTextFake += result[2]
 
     result = generateNews(df, 1)
     df = result[0]
-    falhas = result[1]
-    falhasText = result[2]
+    falhas += result[1]
+    falhasTextReal +=result[2]
 
     fim = time.time()
 
@@ -148,7 +149,8 @@ try:
 
     print('CSV criado com sucesso! ')
     print('Número de falhas: %i' %(falhas))
-    print('Falhas nos textos: ', falhasText)
+    print('Falhas nas verdadeiras notícias: %a' %falhasTextReal)
+    print('Falhas nas falsas notícias: %a' %falhasTextFake)
     print('Tempo de execução: %f minutos' %((fim - inicio) / 60))
 except Exception as e:
     print('Falha ao gerar CSV: %s' %str(e))
