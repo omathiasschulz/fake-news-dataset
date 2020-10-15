@@ -20,20 +20,22 @@ TEXT_NUMBER = 3
 def textClean(text):
     '''
     Método responsável por realizar a limpeza do texto passado como parâmetro
-    '''
-    # Realiza a substituição de todos os caracteres diferentes do regex abaixo
-    text = re.sub(r"[^A-Za-z0-9^,!.\/'+-=]", " ", text)
+    '''    
+    # Coloca o texto em lowercase
+    text = text.lower()
 
-    # Coloca o texto em lowercase e realiza um slip no espaço
-    text = text.lower().split()
+    # Regex que altera os caracteres para um espaço em branco, exceto os caracteres: 
+    # Letras, algumas letras com acentos, números, e o espaço (é tratado mais à frente)
+    text = re.sub(r'[^a-z0-9áàâãéèêíïóôõöúçñ ]', r' ', text)
+
+    # Realiza um slip no espaço
+    text = text.split()
 
     # Remove stopwords
-    stops = set(nltk.corpus.stopwords.words('portuguese'))
-    text = [w for w in text if not w in stops]
-    text = " ".join(text)
+    stopwords = set(nltk.corpus.stopwords.words('portuguese'))
+    text = [w for w in text if not w in stopwords]
+    text = ' '.join(text)
 
-    # Atualiza a string sem os caracteres de pontuação
-    text = text.translate(str.maketrans("", "", string.punctuation))
     return text
 
 def requestMetaInformation(rota, index):
