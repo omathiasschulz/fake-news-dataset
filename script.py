@@ -14,7 +14,7 @@ TEXT_FAKE = 'full_texts/fake/'
 TEXT_FAKE_META_INFORMATION = 'full_texts/fake-meta-information/'
 
 # Número de notícias falsas e verdadeiras
-TEXT_NUMBER = 3602
+# TEXT_NUMBER = 3602 - TODO ajustar
 TEXT_NUMBER = 3
 
 def textClean(text):
@@ -109,7 +109,7 @@ def generateNews(df, fake_news):
             falhasText.append(i)
             continue
 
-        # Insere a noticia no dataframe
+        # Insere a notícia no dataframe
         news = {**{'ID': i, 'fake_news': fake_news, 'text': textClean(req.text)}, **metadata}
         df = df.append(news, ignore_index=True)
 
@@ -121,32 +121,31 @@ def generateNews(df, fake_news):
 
 try:
     print('Iniciano a criação do CSV')
-
     inicio = time.time()
     falhas = 0
     falhasTextFake = []
     falhasTextReal = []
 
-    # Criação da DataFrame
+    # Criação do DataFrame com as colunas iniciais
     columns = ['ID', 'fake_news', 'text']
-    # fake_news => 1 = True, 0 = False
     df = pd.DataFrame(columns = columns)
 
+    # Monta o dataframe com as falsas notícias (fake_news = 0)
     result = generateNews(df, 0)
     df = result[0]
     falhas += result[1]
     falhasTextFake += result[2]
 
+    # Monta o dataframe com as verdadeiras notícias (fake_news = 1)
     result = generateNews(df, 1)
     df = result[0]
     falhas += result[1]
     falhasTextReal +=result[2]
 
-    fim = time.time()
-
     # Realiza a criação do CSV
     df.to_csv('dataset.csv')
 
+    fim = time.time()
     print('CSV criado com sucesso! ')
     print('Número de falhas: %i' %(falhas))
     print('Falhas nas verdadeiras notícias: %a' %falhasTextReal)
