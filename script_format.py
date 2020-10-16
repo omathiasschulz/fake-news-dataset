@@ -9,7 +9,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 # Setando um estilo padrão
-sns.set_style('whitegrid')
+sns.set_style('darkgrid')
 
 def textClean(text):
     '''
@@ -45,12 +45,16 @@ def fixLenTexts(df):
     print('Maior número de palavras de um texto: %i ' %df['number_words'].max())
     print('Média de palavras dos textos: %i ' %df['number_words'].mean())
 
-    # sns_plot = sns.lineplot(x='number_words', y='ID', hue='fake_news', data=df)
-    # sns_plot = sns.lineplot(x='number_words', y='fake_news', data=df)
-    sns_plot = sns.countplot(data=df, x='ID', order=df.number_words.value_counts().index)
-    sns_plot.figure.savefig('number_words.png')
+    # Monta o gráfico com a Quantidade de palavras de cada notícia
+    df_words = pd.DataFrame(columns = ['quantidade', 'numero_palavras'])
+    df_words['numero_palavras'] = df.number_words.value_counts().index.to_numpy()
+    df_words['quantidade'] = df.number_words.value_counts().values
 
-    print(df.number_words.value_counts())
+    sns_plot = sns.scatterplot(x='numero_palavras', y='quantidade', data=df_words)
+    sns_plot.set_title('Quantidade de palavras de cada notícia')
+    sns_plot.set_xlabel('Quantidade de palavras')
+    sns_plot.set_ylabel('Quantidade de textos')
+    sns_plot.figure.savefig('number_words.png')
 
     return df
 
@@ -59,7 +63,7 @@ try:
     inicio = time.time()
 
     # Realiza a leitura do CSV com o texto não formatado
-    df = pd.read_csv('dataset_unformatted.csv')
+    df = pd.read_csv('dataset_unformatted.csv', index_col=0)
 
     # Realiza a pré-processamento do texto
     df.text = df.apply(lambda x: textClean(x.text), axis=1)
