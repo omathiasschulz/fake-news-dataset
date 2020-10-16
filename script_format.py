@@ -56,6 +56,12 @@ def fixLenTexts(df):
     sns_plot.set_ylabel('Quantidade de textos')
     sns_plot.figure.savefig('number_words.png')
 
+    # TODO - Setar um número mínimo de palavras para os textos
+    # Acima de 200 palavras tem 3706 textos
+    # Acima de 300 palavras tem 3174 textos
+    # Acima de 400 palavras tem 2600 textos
+    print(df[df['number_words'] > 200].count())
+
     return df
 
 try:
