@@ -14,8 +14,7 @@ TEXT_FAKE = 'full_texts/fake/'
 TEXT_FAKE_META_INFORMATION = 'full_texts/fake-meta-information/'
 
 # Número de notícias falsas e verdadeiras
-# TEXT_NUMBER = 3602 - TODO ajustar
-TEXT_NUMBER = 3
+TEXT_NUMBER = 3602
 
 def textClean(text):
     '''
@@ -59,27 +58,8 @@ def requestMetaInformation(rota, index):
         'link': metadata[1],
         'category': metadata[2],
         'date_publication': metadata[3],
-        'number_tokens': metadata[4],
-        'number_words': metadata[5],
-        'number_types': metadata[6],
-        'number_links': metadata[7],
-        'number_words_upper': metadata[8],
-        'number_verbs': metadata[9],
-        'number_sub_imp_verbs': metadata[10],
-        'number_nouns': metadata[11],
-        'number_adjectives': metadata[12],
-        'number_adverbs': metadata[13],
-        'number_modal_verbs': metadata[14],
-        'number_singular': metadata[15],
-        'number_plural': metadata[16],
-        'number_pronouns': metadata[17],
-        'pausality': metadata[18],
-        'number_characters': metadata[19],
-        'average_sentence_length': metadata[20],
         'average_word_length': metadata[21],
         'percent_speeling_errors': metadata[22],
-        'emotiveness': metadata[23],
-        'diversity': metadata[24],
     }
 
 def generateNews(df, fake_news):
@@ -143,6 +123,9 @@ try:
     df = result[0]
     falhas += result[1]
     falhasTextReal +=result[2]
+
+    # Realiza a conversão de colunas com números para o tipo numérico
+    df[['ID', 'fake_news', 'average_word_length', 'percent_speeling_errors']] = df[['ID', 'fake_news', 'average_word_length', 'percent_speeling_errors']].apply(pd.to_numeric)
 
     # Realiza a criação do CSV
     df.to_csv('dataset.csv')
