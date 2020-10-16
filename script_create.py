@@ -82,7 +82,7 @@ def generateNews(df, fake_news):
     ]
 
 try:
-    print('Iniciano a criação do CSV')
+    print('Iniciando a criação do CSV')
     inicio = time.time()
     falhas = 0
     falhasTextFake = []
