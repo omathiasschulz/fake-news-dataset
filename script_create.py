@@ -1,9 +1,7 @@
-import requests, re, string, time
+import requests, time
 import time
 import numpy as np
 import pandas as pd
-import nltk
-nltk.download('stopwords')
 
 # Repositório Fake.br-Corpus com os textos em TXT: https://github.com/roneysco/Fake.br-Corpus
 URL = 'https://raw.githubusercontent.com/roneysco/Fake.br-Corpus/master/'
@@ -15,27 +13,6 @@ TEXT_FAKE_META_INFORMATION = 'full_texts/fake-meta-information/'
 
 # Número de notícias falsas e verdadeiras
 TEXT_NUMBER = 3602
-
-def textClean(text):
-    '''
-    Método responsável por realizar a limpeza do texto passado como parâmetro
-    '''    
-    # Coloca o texto em lowercase
-    text = text.lower()
-
-    # Regex que altera os caracteres para um espaço em branco, exceto os caracteres: 
-    # Letras, algumas letras com acentos, números, e o espaço (é tratado mais à frente)
-    text = re.sub(r'[^a-z0-9áàâãéèêíïóôõöúçñ ]', r' ', text)
-
-    # Realiza um slip no espaço
-    text = text.split()
-
-    # Remove stopwords
-    stopwords = set(nltk.corpus.stopwords.words('portuguese'))
-    text = [w for w in text if not w in stopwords]
-    text = ' '.join(text)
-
-    return text
 
 def requestMetaInformation(rota, index):
     '''
@@ -91,8 +68,11 @@ def generateNews(df, fake_news):
             falhasText.append(i)
             continue
 
+        print('Tipo %s - Notícia: %i' %(fake_news, i))
+        # Remove múltiplos espaços
+        text = ' '.join(req.text.split())
         # Insere a notícia no dataframe
-        news = {**{'ID': i, 'fake_news': fake_news, 'text': textClean(req.text)}, **metadata}
+        news = {**{'ID': i, 'fake_news': fake_news, 'text': text}, **metadata}
         df = df.append(news, ignore_index=True)
 
     return [
@@ -128,7 +108,7 @@ try:
     df[['ID', 'fake_news', 'average_word_length', 'percent_speeling_errors']] = df[['ID', 'fake_news', 'average_word_length', 'percent_speeling_errors']].apply(pd.to_numeric)
 
     # Realiza a criação do CSV
-    df.to_csv('dataset.csv')
+    df.to_csv('dataset_unformatted.csv')
 
     fim = time.time()
     print('CSV criado com sucesso! ')
