@@ -25,6 +25,9 @@ def textClean(text):
     # Realiza um slip no espaço
     text = text.split()
 
+    # Remoção de palavras com apenas uma letra
+    text = [w for w in text if len(w) > 1]
+
     # Remove stopwords
     stopwords = set(nltk.corpus.stopwords.words('portuguese'))
     text = [w for w in text if not w in stopwords]
@@ -51,16 +54,18 @@ def fixLenTexts(df):
     df_words['quantidade'] = df.number_words.value_counts().values
 
     sns_plot = sns.scatterplot(x='numero_palavras', y='quantidade', data=df_words)
-    sns_plot.set_title('Quantidade de palavras de cada notícia')
-    sns_plot.set_xlabel('Quantidade de palavras')
+    sns_plot.set_title('Quantidade de palavras em cada notícia')
+    sns_plot.set_xlabel('Quantidade de palavras por texto')
     sns_plot.set_ylabel('Quantidade de textos')
     sns_plot.figure.savefig('number_words.png')
 
-    # TODO - Setar um número mínimo de palavras para os textos
-    # Acima de 200 palavras tem 3706 textos
-    # Acima de 300 palavras tem 3174 textos
-    # Acima de 400 palavras tem 2600 textos
-    print(df[df['number_words'] > 200].count())
+    # Removido textos com menos de 300 palavras
+    df = df[df['number_words'] >= 300]
+    
+    print('\nRemoção de textos com menos de 300 palavras')
+    print('NOVO: Menor número de palavras de um texto: %i ' %df['number_words'].min())
+    print('NOVO: Maior número de palavras de um texto: %i ' %df['number_words'].max())
+    print('NOVO: Média de palavras dos textos: %i ' %df['number_words'].mean())
 
     return df
 
