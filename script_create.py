@@ -47,11 +47,11 @@ def generateNews(df, fake_news):
     falhasText = []
     # Busca as rotas de acordo com o tipo de notícia
     if fake_news == 0:
-        rota = TEXT_FAKE
-        rotaMeta = TEXT_FAKE_META_INFORMATION
-    else:
         rota = TEXT_TRUE
         rotaMeta = TEXT_TRUE_META_INFORMATION
+    else:
+        rota = TEXT_FAKE
+        rotaMeta = TEXT_FAKE_META_INFORMATION
 
     for i in range(1, TEXT_NUMBER + 1):
         # Realiza a busca da noticia i, caso resulte algum erro registra uma falha
@@ -92,14 +92,14 @@ try:
     columns = ['ID', 'fake_news', 'text']
     df = pd.DataFrame(columns = columns)
 
-    # Monta o dataframe com as falsas notícias (fake_news = 0)
-    result = generateNews(df, 0)
+    # Monta o dataframe com as falsas notícias (fake_news = 1)
+    result = generateNews(df, 1)
     df = result[0]
     falhas += result[1]
     falhasTextFake += result[2]
 
-    # Monta o dataframe com as verdadeiras notícias (fake_news = 1)
-    result = generateNews(df, 1)
+    # Monta o dataframe com as verdadeiras notícias (fake_news = 0)
+    result = generateNews(df, 0)
     df = result[0]
     falhas += result[1]
     falhasTextReal +=result[2]
