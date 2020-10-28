@@ -3,3 +3,4 @@ nltk==3.5
 numpy==1.19.0
 pandas==1.0.5
 seaborn==0.10.1
+wordcloud==1.8.0
