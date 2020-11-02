@@ -37,4 +37,12 @@ The `dataset_formatted.csv` is a CSV with pre-processed text generated from the 
 
 Runtime: 0.049592 minutos
 
-The image `number_words.png` shows the number of words in the texts.
+The image `graphic_number_words.png` shows the number of words in the texts.
+
+## Graphic
+
+The image `graphic_word_cloud.png` shows the word cloud graphic of the texts.
+
+Counts the frequency with which each word appears in the texts and sets the size of the words proportional to the frequency.
+
+To generate the cloud graphic it is necessary to run script `script_info.py`.

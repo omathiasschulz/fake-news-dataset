@@ -9,7 +9,7 @@ from wordcloud import WordCloud
 def wordCloud(df):
     '''
     Método responsável por montar um gráfico de nuvem de palavras dos textos
-    Conta a frequência com que cada palavra aparece no texto e seta o tamanho das palavras proporcional à frequência
+    Conta a frequência com que cada palavra aparece nos textos e seta o tamanho das palavras proporcional à frequência
     '''
     # Monta uma string com as palavras de todos os textos
     text = ''
