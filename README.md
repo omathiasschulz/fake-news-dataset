@@ -22,7 +22,7 @@ To create the dataset, in the project folder type:
 
 In which the texts are taken from the [Fake.br-Corpus](https://github.com/roneysco/Fake.br-Corpus)
 
-**Time to generate CSV:**
+**Time to generate the CSV:**
 
 Number of failures: 4
 
@@ -49,7 +49,7 @@ In which the following steps were performed:
  - Removed multiple spaces
  - Removed texts with less than 300 words
 
-**Time to generate CSV:**
+**Time to generate the CSV:**
 
 Runtime: 0.04 minutes
 
