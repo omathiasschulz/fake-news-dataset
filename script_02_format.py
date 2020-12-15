@@ -2,6 +2,7 @@ import re, time, nltk
 import pandas as pd
 nltk.download('stopwords')
 
+# Tamanho mínimo que os textos podem possuir no montagem do CSV de textos formatados
 TEXT_LENGTH = 300
 
 def textClean(text):
