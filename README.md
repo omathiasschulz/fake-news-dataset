@@ -40,7 +40,7 @@ O dataset `dataset.csv` é um CSV gerado a partir do script `script_02_format.py
 
 Para criar o Dataset, na pasta raiz do projeto digite:
 
-`python3 script_format.py`
+`python3 script_02_format.py`
 
 **Etapas de formatação dos textos**
 
@@ -53,16 +53,44 @@ Para criar o Dataset, na pasta raiz do projeto digite:
 
 **Resultados**
 
-RESULTADO
+*=> DataFrame Original*
 
-## Graphics
+Menor número de palavras de um texto: 4 
 
-The image `graphic_word_cloud.png` shows the word cloud graphic of the texts.
+Maior número de palavras de um texto: 4327 
 
-Counts the frequency with which each word appears in the texts and sets the size of the words proportional to the frequency.
+Quantidade de textos: 7200
 
-To generate the cloud graphic it is necessary to run script `script_info.py`, in the project folder type:
+Média de palavras dos textos: 372 
 
-`python3 script_info.py`
+*=> DataFrame sem textos com menos de 300 palavras*
 
-This script generate the image `graphic_number_words.png` that shows the number of words in the texts.
+Quantidade de textos: 3159
+
+Média de palavras dos textos: 697 
+
+CSV com o texto formatado criado com sucesso! 
+
+Tempo de execução: 0.04 minutos
+
+## Gráficos
+
+Os gráficos são gerados a partir do script `script_03_info.py` e se encontram na pasta `graphics`
+
+Para criar os gráficos, na pasta raiz do projeto digite:
+
+`python3 script_03_info.py`
+
+### Gráfico 01 - Word Cloud
+
+O gráfico da imagem `graphics/word_cloud.png` apresenta a nuvem de palavras dos textos
+
+No qual conta a frequência com que cada palavra aparece nos textos e define o tamanho das palavras proporcional à frequência
+
+### Gráfico 02 - Number Words
+
+O gráfico da imagem `graphics/number_words.png` apresenta a quantidade de palavras nos textos
+
+**Resultados**
+
+Tempo de execução: 0.38 minutos
