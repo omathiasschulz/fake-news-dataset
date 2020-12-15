@@ -27,8 +27,11 @@ Para criar o Dataset, na pasta raiz do projeto digite:
 **Resultados**
 
 Número de falhas: 4
+
 Falhas nas verdadeiras notícias: [697, 1468]
+
 Falhas nas falsas notícias: [697, 1468]
+
 Tempo de execução: 82.52 minutos
 
 ### Dataset Formatado
