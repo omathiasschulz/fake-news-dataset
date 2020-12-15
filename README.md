@@ -1,4 +1,4 @@
-# fake-new-dataset :floppy_disk:
+# fake-news-dataset :floppy_disk:
 
 Dataset com falsas e verdadeiras notícias baseado no [Fake.br-Corpus](https://github.com/roneysco/Fake.br-Corpus)
 
