@@ -1,59 +1,58 @@
-# fake-new-dataset
+# fake-new-dataset :floppy_disk:
 
-Brazilian false and true news dataset based on [Fake.br-Corpus](https://github.com/roneysco/Fake.br-Corpus)
+Dataset com falsas e verdadeiras notícias baseado no [Fake.br-Corpus](https://github.com/roneysco/Fake.br-Corpus)
 
-## Install dependencies
+## Instalar as dependências
 
-To install the dependencies in the project folder just type
+**Obs:** Para rodar os scripts utilize o Python 3
+
+Para instalar as dependências do projeto, na pasta raiz do projeto digite:
 
 `pip3 install -r requirements.txt`
 
 ## Datasets
 
-The project has two datasets the `dataset_unformatted.csv` and the `dataset_formatted.csv`
+O projeto possui dois datasets, apresentados abaixo:
 
-### Unformatted Dataset
+### Dataset sem formatação
 
-The `dataset_unformatted.csv` is a CSV generated from the `script_create.py`
+O dataset `dataset_unformatted.csv` é um CSV gerado a partir do script `script_01_create.py`
 
-To create the dataset, in the project folder type:
+Neste CSV, foram buscados em textos e informações do [Fake.br-Corpus](https://github.com/roneysco/Fake.br-Corpus) e convertidas em um CSV
 
-`python3 script_create.py`
+Para criar o Dataset, na pasta raiz do projeto digite:
 
-In which the texts are taken from the [Fake.br-Corpus](https://github.com/roneysco/Fake.br-Corpus)
+`python3 script_01_create.py`
 
-**Time to generate the CSV:**
+**Resultados**
 
-Number of failures: 4
+Número de falhas: 4
+Falhas nas verdadeiras notícias: [697, 1468]
+Falhas nas falsas notícias: [697, 1468]
+Tempo de execução: 82.52 minutos
 
-Failures in the real news: [697, 1468]
+### Dataset Formatado
 
-Failures in the fake news: [697, 1468]
-
-Runtime: 83.66 minutes
-
-### Formatted Dataset
+O dataset `dataset.csv` é um CSV gerado a partir do script `script_02_format.py`
 
 The `dataset_formatted.csv` is a CSV with pre-processed text generated from the `script_format.py`
 
-To create the dataset, in the project folder type:
+Para criar o Dataset, na pasta raiz do projeto digite:
 
 `python3 script_format.py`
 
-In which the following steps were performed:
+**Etapas de formatação dos textos**
 
- - Put the text in lower case;
- - Changed the characters to a blank space, except the characters: Letters, some letters with accents, numbers, and the space (treated later)
- - Removed words with just one letter
- - Removed stopwords
- - Removed multiple spaces
- - Removed texts with less than 300 words
+ - Realizado a substituição das letras maiúsculas por minúsculas utilizando o Python;
+ - Atualizado os caracteres para um espaço em branco utilizando o Python, exceto os caracteres: Letras, algumas letras com acentos e o espaço;
+ - Removido palavras com apenas um carácter por meio da biblioteca Pandas;
+ - Removido stopwords por meio da biblioteca Gensim, utilizando o NLTK;
+ - Removido múltiplos espaços por um único espaço utilizando o Python;
+ - Removido textos com menos de 300 palavras;
 
-**Time to generate the CSV:**
+**Resultados**
 
-Runtime: 0.04 minutes
-
-This script generate the image `graphic_number_words.png` that shows the number of words in the texts.
+RESULTADO
 
 ## Graphics
 
@@ -64,3 +63,5 @@ Counts the frequency with which each word appears in the texts and sets the size
 To generate the cloud graphic it is necessary to run script `script_info.py`, in the project folder type:
 
 `python3 script_info.py`
+
+This script generate the image `graphic_number_words.png` that shows the number of words in the texts.
