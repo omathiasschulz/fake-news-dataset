@@ -2,6 +2,8 @@ import re, time, nltk
 import pandas as pd
 nltk.download('stopwords')
 
+TEXT_LENGTH = 300
+
 def textClean(text):
     '''
     Método responsável por realizar a limpeza do texto passado como parâmetro
@@ -37,15 +39,18 @@ def fixLenTexts(df):
     print(df.head())
     print('Menor número de palavras de um texto: %i ' %df['number_words'].min())
     print('Maior número de palavras de um texto: %i ' %df['number_words'].max())
+
+    print('\n=> DataFrame sem tamanho mínino de palavras nos textos:')
+    print('Quantidade de textos: %i' %len(df))
     print('Média de palavras dos textos: %i ' %df['number_words'].mean())
 
     # Removido textos com menos de 300 palavras
-    df = df[df['number_words'] >= 300]
-    
-    print('\nRemoção de textos com menos de 300 palavras')
-    print('NOVO: Menor número de palavras de um texto: %i ' %df['number_words'].min())
-    print('NOVO: Maior número de palavras de um texto: %i ' %df['number_words'].max())
-    print('NOVO: Média de palavras dos textos: %i ' %df['number_words'].mean())
+    df = df[df['number_words'] >= TEXT_LENGTH]
+
+    print('\nNOVO DATAFRAME')
+    print('=> DataFrame sem textos com menos de %i palavras' %TEXT_LENGTH)
+    print('Quantidade de textos: %i' %len(df))
+    print('Média de palavras dos textos: %i \n' %df['number_words'].mean())
 
     return df
 
