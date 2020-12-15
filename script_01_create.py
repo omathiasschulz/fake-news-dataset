@@ -1,6 +1,4 @@
 import requests, time
-import time
-import numpy as np
 import pandas as pd
 
 # Repositório Fake.br-Corpus com os textos em TXT: https://github.com/roneysco/Fake.br-Corpus

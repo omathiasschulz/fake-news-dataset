@@ -1,15 +1,6 @@
-import re, string, time
-import time
-import numpy as np
+import re, time, nltk
 import pandas as pd
-import nltk
 nltk.download('stopwords')
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import seaborn as sns
-# Setando um estilo padrão
-sns.set_style('darkgrid')
 
 def textClean(text):
     '''
@@ -48,17 +39,6 @@ def fixLenTexts(df):
     print('Maior número de palavras de um texto: %i ' %df['number_words'].max())
     print('Média de palavras dos textos: %i ' %df['number_words'].mean())
 
-    # Monta o gráfico com a Quantidade de palavras de cada notícia
-    df_words = pd.DataFrame(columns = ['quantidade', 'numero_palavras'])
-    df_words['numero_palavras'] = df.number_words.value_counts().index.to_numpy()
-    df_words['quantidade'] = df.number_words.value_counts().values
-
-    sns_plot = sns.scatterplot(x='numero_palavras', y='quantidade', data=df_words)
-    sns_plot.set_title('Quantidade de palavras em cada notícia')
-    sns_plot.set_xlabel('Quantidade de palavras por texto')
-    sns_plot.set_ylabel('Quantidade de textos')
-    sns_plot.figure.savefig('number_words.png')
-
     # Removido textos com menos de 300 palavras
     df = df[df['number_words'] >= 300]
     
@@ -83,7 +63,7 @@ try:
     fixLenTexts(df)
 
     # Realiza a criação do novo CSV
-    df.to_csv('dataset_formatted.csv')
+    df.to_csv('dataset.csv')
 
     fim = time.time()
     print('CSV com o texto formatado criado com sucesso! ')

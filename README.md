@@ -35,8 +35,6 @@ Tempo de execução: 82.52 minutos
 
 O dataset `dataset.csv` é um CSV gerado a partir do script `script_02_format.py`
 
-The `dataset_formatted.csv` is a CSV with pre-processed text generated from the `script_format.py`
-
 Para criar o Dataset, na pasta raiz do projeto digite:
 
 `python3 script_format.py`

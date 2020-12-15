@@ -44,6 +44,21 @@ try:
     print('Gerando o word cloud... ')
     wordCloud(df)
 
+
+
+    # # Monta o gráfico com a Quantidade de palavras de cada notícia
+    # df_words = pd.DataFrame(columns = ['quantidade', 'numero_palavras'])
+    # df_words['numero_palavras'] = df.number_words.value_counts().index.to_numpy()
+    # df_words['quantidade'] = df.number_words.value_counts().values
+
+    # sns_plot = sns.scatterplot(x='numero_palavras', y='quantidade', data=df_words)
+    # sns_plot.set_title('Quantidade de palavras em cada notícia')
+    # sns_plot.set_xlabel('Quantidade de palavras por texto')
+    # sns_plot.set_ylabel('Quantidade de textos')
+    # sns_plot.figure.savefig('number_words.png')
+
+
+
     fim = time.time()
     print('Gráficos criados com sucesso! ')
     print('Tempo de execução: %f minutos' %((fim - inicio) / 60))
