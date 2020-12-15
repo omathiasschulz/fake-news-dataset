@@ -69,8 +69,6 @@ Quantidade de textos: 3159
 
 Média de palavras dos textos: 697 
 
-CSV com o texto formatado criado com sucesso! 
-
 Tempo de execução: 0.04 minutos
 
 ## Gráficos
