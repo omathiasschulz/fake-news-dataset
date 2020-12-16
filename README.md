@@ -69,7 +69,7 @@ Quantidade de textos: 3159
 
 Média de palavras dos textos: 697 
 
-Tempo de execução: 0.04 minutos
+Tempo de execução: 0.03 minutos
 
 ## Gráficos
 
@@ -91,4 +91,4 @@ O gráfico da imagem `graphics/number_words.png` apresenta a quantidade de palav
 
 **Resultados**
 
-Tempo de execução: 0.38 minutos
+Tempo de execução: 0.36 minutos

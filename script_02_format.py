@@ -66,7 +66,7 @@ try:
     df.text = df.apply(lambda x: textClean(x.text), axis=1)
 
     # Seta um tamanho fixo de palavras para os textos
-    fixLenTexts(df)
+    df = fixLenTexts(df)
 
     # Realiza a criação do novo CSV
     df.to_csv('dataset.csv')
