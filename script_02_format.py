@@ -47,6 +47,8 @@ def fixLenTexts(df):
 
     # Removido textos com menos de 300 palavras
     df = df[df['number_words'] >= TEXT_LENGTH]
+    # Reajusta os indexs
+    df = df.reset_index(drop=True)
 
     print('\nNOVO DATAFRAME')
     print('=> DataFrame sem textos com menos de %i palavras' %TEXT_LENGTH)
