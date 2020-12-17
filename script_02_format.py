@@ -45,7 +45,7 @@ def fixLenTexts(df):
     print('Quantidade de textos: %i' %len(df))
     print('Média de palavras dos textos: %i ' %df['number_words'].mean())
 
-    # Removido textos com menos de 300 palavras
+    # Removido textos com menos de TEXT_LENGTH palavras
     df = df[df['number_words'] >= TEXT_LENGTH]
     # Reajusta os indexs
     df = df.reset_index(drop=True)
@@ -65,9 +65,11 @@ try:
     df = pd.read_csv('dataset_unformatted.csv', index_col=0)
 
     # Realiza a pré-processamento do texto
+    print('Realizando a limpeza dos textos... ')
     df.text = df.apply(lambda x: textClean(x.text), axis=1)
 
     # Seta um tamanho fixo de palavras para os textos
+    print('Ajustando o tamanho dos textos... ')
     df = fixLenTexts(df)
 
     # Realiza a criação do novo CSV
