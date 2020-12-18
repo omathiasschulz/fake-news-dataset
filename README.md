@@ -45,7 +45,7 @@ Para criar o Dataset, na pasta raiz do projeto digite:
 **Etapas de formatação dos textos**
 
  - Realizado a substituição das letras maiúsculas por minúsculas utilizando o Python;
- - Atualizado os caracteres para um espaço em branco utilizando o Python, exceto os caracteres: Letras, algumas letras com acentos e o espaço;
+ - Atualizado os caracteres para um espaço em branco utilizando o Python, exceto os caracteres: Letras, algumas letras com acentos e o espaço (tratado mais à frente);
  - Removido palavras com apenas um carácter por meio da biblioteca Pandas;
  - Removido stopwords por meio da biblioteca Gensim, utilizando o NLTK;
  - Removido múltiplos espaços por um único espaço utilizando o Python;
