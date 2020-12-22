@@ -4,7 +4,7 @@ Dataset com falsas e verdadeiras notícias baseado no [Fake.br-Corpus](https://g
 
 ## Instalar as dependências
 
-**Obs:** Para rodar os scripts utilize o Python 3
+**Obs:** Para rodar os scripts utilize o Python 3.8
 
 Para instalar as dependências do projeto, na pasta raiz do projeto digite:
 
@@ -12,13 +12,13 @@ Para instalar as dependências do projeto, na pasta raiz do projeto digite:
 
 ## Datasets
 
-O projeto possui dois datasets, apresentados abaixo:
+Os datasets do projeto são apresentados abaixo:
 
 ### Dataset sem formatação
 
-O dataset `dataset_unformatted.csv` é um CSV gerado a partir do script `script_01_create.py`
+O dataset do CSV `dataset_unformatted.csv` é gerado a partir do script `script_01_create.py`
 
-Neste CSV, foram buscados em textos e informações do [Fake.br-Corpus](https://github.com/roneysco/Fake.br-Corpus) e convertidas em um CSV
+Neste CSV, foram buscados os textos e informações do [Fake.br-Corpus](https://github.com/roneysco/Fake.br-Corpus) e convertidas em um CSV
 
 Para criar o Dataset, na pasta raiz do projeto digite:
 
@@ -32,13 +32,21 @@ Falhas nas verdadeiras notícias: [697, 1468]
 
 Falhas nas falsas notícias: [697, 1468]
 
-Tempo de execução: 82.52 minutos
+Tempo aproximado de execução: 82.52 minutos
 
-### Dataset Formatado
+### Datasets Formatados
 
-O dataset `dataset.csv` é um CSV gerado a partir do script `script_02_format.py`
+O dataset do CSV `dataset.csv` é gerado a partir do script `script_02_format.py`
 
-Para criar o Dataset, na pasta raiz do projeto digite:
+Por padrão, o dataset do CSV`dataset.csv` possui apenas textos maiores que 300 palavras, baseado na variável `TEXT_LENGTH_DEFAULT`
+
+Os datasets dos CSV's `dataset_100_palavras.csv` e `dataset_200_palavras.csv` foram criados para teste e possuem o tamanho baseado na variável `TEXT_LENGTH_FOR_TESTS`  
+
+Dessa forma, o dataset do CSV `dataset_100_palavras.csv` possui apenas textos maiores que 100 palavras e o dataset do CSV `dataset_200_palavras.csv` possui apenas textos maiores que 200 palavras
+
+Para criar novos CSV's com tamanhos variados ou alterar os existentes apenas é necessário alterar os valores da lista `TEXT_LENGTH_FOR_TESTS`
+
+Para criar os Datasets, na pasta raiz do projeto digite:
 
 `python3 script_02_format.py`
 
@@ -49,11 +57,10 @@ Para criar o Dataset, na pasta raiz do projeto digite:
  - Removido palavras com apenas um carácter por meio da biblioteca Pandas;
  - Removido stopwords por meio da biblioteca Gensim, utilizando o NLTK;
  - Removido múltiplos espaços por um único espaço utilizando o Python;
- - Removido textos com menos de 300 palavras;
 
 **Resultados**
 
-*=> DataFrame Original*
+**=> DataFrame Original**
 
 Menor número de palavras de um texto: 4 
 
@@ -63,17 +70,31 @@ Quantidade de textos: 7200
 
 Média de palavras dos textos: 372 
 
-*=> DataFrame sem textos com menos de 300 palavras*
+**=> DataFrame sem textos com menos de 300 palavras**
 
 Quantidade de textos: 3159
 
 Média de palavras dos textos: 697 
 
-Tempo de execução: 0.03 minutos
+**=> DataFrame sem textos com menos de 200 palavras**
+
+Quantidade de textos: 3699
+
+Média de palavras dos textos: 631 
+
+**=> DataFrame sem textos com menos de 100 palavras**
+
+Quantidade de textos: 5166
+
+Média de palavras dos textos: 491 
+
+Tempo aproximado de execução: 0.05 minutos
 
 ## Gráficos
 
 Os gráficos são gerados a partir do script `script_03_info.py` e se encontram na pasta `graphics`
+
+Os gráficos são gerados baseados nos dados do dataset `dataset.csv`
 
 Para criar os gráficos, na pasta raiz do projeto digite:
 
@@ -91,4 +112,4 @@ O gráfico da imagem `graphics/number_words.png` apresenta a quantidade de palav
 
 **Resultados**
 
-Tempo de execução: 0.36 minutos
+Tempo aproximado de execução: 0.36 minutos
