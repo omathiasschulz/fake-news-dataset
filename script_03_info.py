@@ -70,7 +70,7 @@ def main():
 
     # os gráficos são construídos com base no dataset_0_palavras
     # realiza a leitura do CSV
-    df = pd.read_csv('dataset_0_palavras.csv', index_col=0)
+    df = pd.read_csv('datasets/formatted/dataset_0_palavras.csv', index_col=0)
 
     wordCloud(df)
     qtdPalavras(df)

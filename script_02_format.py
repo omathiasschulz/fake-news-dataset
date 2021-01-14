@@ -6,7 +6,7 @@ import pandas as pd
 nltk.download('stopwords')
 
 # tamanho mínimo que os textos podem possuir no montagem do CSV de textos formatados
-TEXT_LENGTH_FOR_TESTS = [0, 50, 100, 150, 200, 250, 300]
+TEXT_LENGTH_FOR_TESTS = [0, 50, 100, 150, 200]
 
 
 def textClean(text):
@@ -107,7 +107,7 @@ def main():
         df_test = fixLenTexts(df, length)
 
         # realiza a criação do novo CSV
-        df_test.to_csv('dataset_' + str(length) + '_palavras.csv')
+        df_test.to_csv('datasets/formatted/dataset_' + str(length) + '_palavras.csv')
 
     fim = time.time()
     print('CSVs com o texto formatado criados com sucesso! ')
