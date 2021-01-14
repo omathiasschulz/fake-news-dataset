@@ -6,8 +6,7 @@ import pandas as pd
 nltk.download('stopwords')
 
 # tamanho mínimo que os textos podem possuir no montagem do CSV de textos formatados
-TEXT_LENGTH_DEFAULT = 300
-TEXT_LENGTH_FOR_TESTS = [0, 50, 100, 150, 200]
+TEXT_LENGTH_FOR_TESTS = [0, 50, 100, 150, 200, 250, 300]
 
 
 def textClean(text):
@@ -53,10 +52,6 @@ def infoDFAntigo(df):
     print(df.head())
     print('Menor número de palavras de um texto: %i ' % df['number_words'].min())
     print('Maior número de palavras de um texto: %i ' % df['number_words'].max())
-
-    print('\n=> DataFrame sem tamanho mínino de palavras nos textos:')
-    print('Quantidade de textos: %i' % len(df))
-    print('Média de palavras dos textos: %i ' % df['number_words'].mean())
 
 
 def fixLenTexts(df, text_length):
@@ -106,16 +101,12 @@ def main():
 
     # seta um tamanho fixo de palavras para os textos
     print('Ajustando o tamanho dos textos... ')
-    # cria o dataset.csv com o tamanho default para os textos
-    df_length_default = fixLenTexts(df, TEXT_LENGTH_DEFAULT)
-    # realiza a criação do novo CSV
-    df_length_default.to_csv('dataset.csv')
-
-    # cria outros CSV's com os tamanhos para teste
+    # cria os CSV's com um tamanho mínimo para os textos em cada CSV
     for length in TEXT_LENGTH_FOR_TESTS:
+        # remove os textos menores que o tamanho determinado
         df_test = fixLenTexts(df, length)
 
-        # realiza a criação do novo CSV para teste
+        # realiza a criação do novo CSV
         df_test.to_csv('dataset_' + str(length) + '_palavras.csv')
 
     fim = time.time()

@@ -68,8 +68,9 @@ def main():
     print('Iniciando a criação dos gráficos para uma melhor visualização do dataset')
     inicio = time.time()
 
+    # os gráficos são construídos com base no dataset_0_palavras
     # realiza a leitura do CSV
-    df = pd.read_csv('dataset.csv', index_col=0)
+    df = pd.read_csv('dataset_0_palavras.csv', index_col=0)
 
     wordCloud(df)
     qtdPalavras(df)
