@@ -90,7 +90,7 @@ def main():
     inicio = time.time()
 
     # realiza a leitura do CSV com o texto não formatado
-    df = pd.read_csv('dataset_unformatted.csv', index_col=0)
+    df = pd.read_csv('datasets/unformatted/dataset.csv', index_col=0)
 
     # realiza a pré-processamento do texto
     print('Realizando a limpeza dos textos... ')

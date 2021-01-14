@@ -127,7 +127,7 @@ def main():
     df[columns_to_convert] = df[columns_to_convert].apply(pd.to_numeric)
 
     # realiza a criação do CSV
-    df.to_csv('dataset_unformatted.csv')
+    df.to_csv('datasets/unformatted/dataset.csv')
 
     fim = time.time()
     print('CSV criado com sucesso! ')
