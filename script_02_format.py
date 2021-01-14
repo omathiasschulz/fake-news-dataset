@@ -7,7 +7,7 @@ nltk.download('stopwords')
 
 # tamanho mínimo que os textos podem possuir no montagem do CSV de textos formatados
 TEXT_LENGTH_DEFAULT = 300
-TEXT_LENGTH_FOR_TESTS = [100, 200]
+TEXT_LENGTH_FOR_TESTS = [0, 50, 100, 150, 200]
 
 
 def textClean(text):
@@ -76,9 +76,13 @@ def fixLenTexts(df, text_length):
     df = df.reset_index(drop=True)
 
     print('\nNOVO DATAFRAME')
-    print('=> DataFrame sem textos com menos de %i palavras' % text_length)
-    print('Quantidade de textos: %i' % len(df))
-    print('Média de palavras dos textos: %i \n' % df['number_words'].mean())
+    print('=> DataFrame sem notícias com menos de %i palavras' % text_length)
+    print('Quantidade de notícias: %i' % len(df))
+    print('Quantidade de notícias verdadeiras (fake_news=0): %i' % df[df['fake_news'] == 0].shape[0])
+    print('Quantidade de notícias falsas (fake_news=1): %i' % df[df['fake_news'] == 1].shape[0])
+    print('Média de palavras das notícias: %.2f' % df['number_words'].mean())
+    print('Média de palavras das notícias verdadeiras: %.2f' % df[df['fake_news'] == 0]['number_words'].mean())
+    print('Média de palavras das notícias falsas: %.2f' % df[df['fake_news'] == 1]['number_words'].mean())
 
     return df
 
