@@ -12,13 +12,13 @@ Para instalar as dependências do projeto, na pasta raiz do projeto digite:
 
 ## Datasets
 
-Os datasets do projeto são apresentados abaixo:
+Os datasets do projeto estão no diretório `datasets/` e são apresentados abaixo:
 
 ### Dataset sem formatação
 
-O dataset do CSV `dataset_unformatted.csv` é gerado a partir do script `script_01_create.py`
+O dataset do CSV `datasets/unformatted/dataset.csv` é gerado a partir do script `script_01_create.py`
 
-Neste CSV, foram buscados os textos e informações do [Fake.br-Corpus](https://github.com/roneysco/Fake.br-Corpus) e convertidas em um CSV
+Este CSV possui os textos sem formatação e outras informações que foram buscados do [Fake.br-Corpus](https://github.com/roneysco/Fake.br-Corpus) e convertidas em um CSV
 
 Para criar o Dataset, na pasta raiz do projeto digite:
 
@@ -36,15 +36,13 @@ Tempo aproximado de execução: 82.52 minutos
 
 ### Datasets Formatados
 
-O dataset do CSV `dataset.csv` é gerado a partir do script `script_02_format.py`
+Os datasets que estão na pasta `datasets/formatted/` são gerados a partir do script `script_02_format.py`
 
-Por padrão, o dataset do CSV`dataset.csv` possui apenas textos maiores que 300 palavras, baseado na variável `TEXT_LENGTH_DEFAULT`
+Os datasets dessa pasta foram criados com base na variável `TEXT_LENGTH`, cada posição da variável gera um dataset, no qual o valor determina que o dataset não deve possuir notícias menores que o valor especificado
 
-Os datasets dos CSV's `dataset_100_palavras.csv` e `dataset_200_palavras.csv` foram criados para teste e possuem o tamanho baseado na variável `TEXT_LENGTH_FOR_TESTS`  
+*Por exemplo:* O dataset do CSV `dataset_100_palavras.csv` possui apenas textos maiores ou iguais que 100 palavras e o dataset do CSV `dataset_200_palavras.csv` possui apenas textos maiores ou iguais que 200 palavras
 
-Dessa forma, o dataset do CSV `dataset_100_palavras.csv` possui apenas textos maiores que 100 palavras e o dataset do CSV `dataset_200_palavras.csv` possui apenas textos maiores que 200 palavras
-
-Para criar novos CSV's com tamanhos variados ou alterar os existentes apenas é necessário alterar os valores da lista `TEXT_LENGTH_FOR_TESTS`
+Para criar novos CSV's com tamanhos variados ou alterar os existentes apenas é necessário alterar os valores da lista `TEXT_LENGTH`
 
 Para criar os Datasets, na pasta raiz do projeto digite:
 
@@ -60,39 +58,93 @@ Para criar os Datasets, na pasta raiz do projeto digite:
 
 **Resultados**
 
-**=> DataFrame Original**
+**NOVO DATAFRAME**
 
-Menor número de palavras de um texto: 4 
+=> DataFrame sem notícias com menos de 0 palavras
 
-Maior número de palavras de um texto: 4327 
+Quantidade de notícias: 7200
 
-Quantidade de textos: 7200
+Quantidade de notícias verdadeiras (fake_news=0): 3600
 
-Média de palavras dos textos: 372 
+Quantidade de notícias falsas (fake_news=1): 3600
 
-**=> DataFrame sem textos com menos de 300 palavras**
+Média de palavras das notícias: 372.04
 
-Quantidade de textos: 3159
+Média de palavras das notícias verdadeiras: 634.94
 
-Média de palavras dos textos: 697 
+Média de palavras das notícias falsas: 109.15
 
-**=> DataFrame sem textos com menos de 200 palavras**
+**NOVO DATAFRAME**
 
-Quantidade de textos: 3699
+=> DataFrame sem notícias com menos de 50 palavras
 
-Média de palavras dos textos: 631 
+Quantidade de notícias: 6853
 
-**=> DataFrame sem textos com menos de 100 palavras**
+Quantidade de notícias verdadeiras (fake_news=0): 3599
 
-Quantidade de textos: 5166
+Quantidade de notícias falsas (fake_news=1): 3254
 
-Média de palavras dos textos: 491 
+Média de palavras das notícias: 389.11
 
-Tempo aproximado de execução: 0.05 minutos
+Média de palavras das notícias verdadeiras: 635.11
+
+Média de palavras das notícias falsas: 117.02
+
+**NOVO DATAFRAME**
+
+=> DataFrame sem notícias com menos de 100 palavras
+
+Quantidade de notícias: 5166
+
+Quantidade de notícias verdadeiras (fake_news=0): 3576
+
+Quantidade de notícias falsas (fake_news=1): 1590
+
+Média de palavras das notícias: 491.53
+
+Média de palavras das notícias verdadeiras: 638.67
+
+Média de palavras das notícias falsas: 160.59
+
+**NOVO DATAFRAME**
+
+=> DataFrame sem notícias com menos de 150 palavras
+
+Quantidade de notícias: 4170
+
+Quantidade de notícias verdadeiras (fake_news=0): 3520
+
+Quantidade de notícias falsas (fake_news=1): 650
+
+Média de palavras das notícias: 580.03
+
+Média de palavras das notícias verdadeiras: 646.81
+
+Média de palavras das notícias falsas: 218.39
+
+**NOVO DATAFRAME**
+
+=> DataFrame sem notícias com menos de 200 palavras
+
+Quantidade de notícias: 3699
+
+Quantidade de notícias verdadeiras (fake_news=0): 3432
+
+Quantidade de notícias falsas (fake_news=1): 267
+
+Média de palavras das notícias: 631.98
+
+Média de palavras das notícias verdadeiras: 658.82
+
+Média de palavras das notícias falsas: 286.86
+
+CSVs com o texto formatado criados com sucesso! 
+
+Tempo de execução: 0.07 minutos
 
 ## Gráficos
 
-Os gráficos são gerados a partir do script `script_03_info.py` e se encontram na pasta `graphics`
+Os gráficos são gerados a partir do script `script_03_info.py` e se encontram na pasta `graphics/`
 
 Os gráficos são gerados baseados nos dados do dataset `dataset.csv`
 

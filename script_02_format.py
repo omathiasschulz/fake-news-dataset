@@ -6,7 +6,7 @@ import pandas as pd
 nltk.download('stopwords')
 
 # tamanho mínimo que os textos podem possuir no montagem do CSV de textos formatados
-TEXT_LENGTH_FOR_TESTS = [0, 50, 100, 150, 200]
+TEXT_LENGTH = [0, 50, 100, 150, 200]
 
 
 def textClean(text):
@@ -102,7 +102,7 @@ def main():
     # seta um tamanho fixo de palavras para os textos
     print('Ajustando o tamanho dos textos... ')
     # cria os CSV's com um tamanho mínimo para os textos em cada CSV
-    for length in TEXT_LENGTH_FOR_TESTS:
+    for length in TEXT_LENGTH:
         # remove os textos menores que o tamanho determinado
         df_test = fixLenTexts(df, length)
 
